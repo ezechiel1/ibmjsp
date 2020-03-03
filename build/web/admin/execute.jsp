@@ -3,6 +3,15 @@
     Created on : Jan 14, 2020, 8:51:03 PM
     Author     : root
 --%>
+<%
+    if(session.getAttribute("admin_names") == null || session.getAttribute("admin_names") == "_INVALID_")
+    {
+        //redirect url
+        %>
+        <script> window.location.href="http://localhost:8080/ibm/admin/";</script>
+        <%
+    }
+%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="core.db"%>
@@ -84,10 +93,10 @@ String cDate=dateFormat.format(date);
         }
     </style>
   </head>
-<% if(!session.getAttribute("notification_status").equals("")){ 
+<% if(session.getAttribute("notification_status") != null || session.getAttribute("notification_status") != "_INVALID_"){ 
         String pnotify="";
         String msg=(String)session.getAttribute("notification_msg");
-        if(session.getAttribute("notification_status").equals("Success")){ pnotify="success";}
+        if(session.getAttribute("notification_status") == "Success"){ pnotify="success";}
         else{ pnotify="error";}
 %>
   <body  onpageshow="new PNotify({
